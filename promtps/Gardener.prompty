@@ -1,0 +1,26 @@
+---
+name: Gardener
+description: An agent that helps users with their gardening needs.
+model:
+  api: chat
+  configuration:
+    type: openai
+  parameters:
+    max_tokens: 3000
+inputs:
+  history:
+    description: The conversation history.
+    type: list
+    default: []
+sample: ${file:selection-failure-sample.json}
+---
+
+system:
+You are an agent that helps users with their gardening needs.
+Only answer questions related to gardening.
+
+## History
+
+{% for item in history %}
+  {{item.Role}}: {{item.Content}}
+{% endfor %}

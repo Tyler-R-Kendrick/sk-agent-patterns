@@ -14,7 +14,7 @@ public class OrchestrationAgent
     private readonly Lazy<PromptTemplateConfig> _lazyAgentPrompty;
     private readonly IFileProvider _fileProvider;
 
-    public List<Agent> Agents { get; set; }
+    public List<Agent> Agents { get; set; } = [];
 
     public static string GetHistoryString(IEnumerable<ChatMessageContent> history)
         => string.Join(Environment.NewLine, history.Select(x => x.ToString()));
@@ -101,7 +101,6 @@ public class OrchestrationAgent
         chat.AddChatMessages(localHistory.ToArray());
         List<string> responses = [];
         Console.WriteLine("Starting Group Chat");
-        chat.AddChatMessage(new ChatMessageContent(AuthorRole.System, "Ask some questions about gardening or weather to get started!"));
         await foreach (var message in chat.InvokeAsync(cancellationToken).Where(x => x.Role != AuthorRole.User))
         {
             Console.WriteLine("Message Generated: {0}", message);
