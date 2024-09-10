@@ -1,0 +1,68 @@
+---
+name: Orchestrator
+description: A prompt that creates a set of tasks from chat history.
+model:
+  api: chat
+  configuration:
+    type: openai
+  parameters:
+    max_tokens: 3000
+inputs:
+  history:
+    description: The conversation history.
+    type: list
+    default: []
+sample: ${file:tasks-success-sample.json}
+---
+
+system:
+From the conversation history, create an ordered set of tasks that need to be completed to fulfill the user request.
+Each task should be phrased in a way that has clear completion criteria.
+Each task should mention the agents that are expected to be involved in the task.
+
+## History
+
+{% for item in history %}
+  {{item.Role}}: {{item.Content}}
+{% endfor %}
+
+## Agents
+
+{% for agent in agents %}
+  - {{agent.Name}}: {{agent.Description}}
+{% endfor %}
+
+## Examples
+
+### Example 1
+
+  history:
+    - User: "I need help with my computer."
+    - Agent: "I can help with that."
+    - User: "Great, I need to install Microsoft word."
+
+  agents:
+    tech support: "A tech support agent that can help with computer issues."
+    installation agent: "An agent that can install software."
+
+  output: [
+    "(installation agent) needs to install Microsoft Word on the user's computer."
+    "(tech support) needs to notify the user when they're done."
+  ]
+
+### Example 2
+
+  history:
+    - User: "What should I do today?"
+
+  agents:
+    event planner: "An event planner that can help the user plan their day."
+    location agent: "An agent that can provide information about locations."
+    user agent: "An agent that can provide information about the user."
+
+  output: [
+    "(location agent) needs to get information about the user's location.",
+    "(user agent) needs to get information about the user's preferences.",
+    "(event planner) needs to look for local events related to user's preferences."
+  ]
+

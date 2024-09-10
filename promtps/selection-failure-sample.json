@@ -1,0 +1,27 @@
+{
+    "task": "Describe the user's favorite food.",
+    "agents": [
+        {
+            "Name": "Weather Agent",
+            "Description": "Checks current weather conditions - given a location."
+        },
+        {
+            "Name": "Farming Agent",
+            "Description": "Gives advice on farming practices - given current weather conditions."
+        }
+    ],
+    "history": [
+        {
+            "Role": "User",
+            "Content": "What is the current weather?"
+        },
+        {
+            "Role": "Assistant",
+            "Content": "Please input your current location."
+        },
+        {
+            "Role": "User",
+            "Content": "San Francisco"
+        }
+    ]
+}

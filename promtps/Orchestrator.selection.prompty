@@ -1,0 +1,46 @@
+---
+name: Orchestrator - Selection
+description: A prompt that determines when to select an agent in an agent group chat.
+model:
+  api: chat
+  configuration:
+    type: openai
+  parameters:
+    max_tokens: 3000
+inputs:
+  agents:
+    description: The agents in the chat.
+    type: list
+    default: []
+  history:
+    description: The conversation history.
+    type: list
+    default: []
+  task:
+    description: The task to check for completion.
+    type: string
+sample: ${file:selection-failure-sample.json}
+---
+
+system:
+Select the agent that can complete the task.
+If more information is required to complete the task, select the agent most likely able to provide it.
+Only output the agent name that can complete the task.
+Don't output anything other than the agent name.
+If no agent can complete the task, output "None".
+
+## Agents
+
+{% for agent in agents %}
+  - {{agent.Name}}: {{agent.Description}}
+{% endfor %}
+
+## History
+
+{% for item in history %}
+  {{item.Role}}: {{item.Content}}
+{% endfor %}
+
+## Task
+
+{{task}}

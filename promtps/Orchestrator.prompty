@@ -1,0 +1,38 @@
+---
+name: Orchestrator
+description: An agent that orchestrates multiple agents to solve tasks.
+model:
+  api: chat
+  configuration:
+    type: openai
+  parameters:
+    max_tokens: 3000
+inputs:
+  agents:
+    description: The agents to select from.
+    type: list
+    default: []
+  history:
+    description: The conversation history.
+    type: list
+    default: []
+sample: ${file:selection-failure-sample.json}
+---
+
+system:
+Create a list of tasks that need to be completed to fulfill the user request.
+For each task, create an agent group chat with the agents that are expected to be involved in the task.
+If no agent can complete the task, explain why.
+If information is missing ask the user to provide what is necessary to complete their tasks.
+
+## History
+
+{% for item in history %}
+  {{item.Role}}: {{item.Content}}
+{% endfor %}
+
+## Agents
+
+{% for agent in agents %}
+  - {{agent.Name}}: {{agent.Description}}
+{% endfor %}

@@ -1,0 +1,18 @@
+{
+    "agents": [
+        {
+            "Name": "Weather Agent",
+            "Description": "Checks current weather conditions - given a location."
+        },
+        {
+            "Name": "Farming Agent",
+            "Description": "Gives advice on farming practices - given current weather conditions."
+        }
+    ],
+    "history": [
+        {
+            "Role": "User",
+            "Content": "Is today's weather good for planting corn?"
+        }
+    ]
+}

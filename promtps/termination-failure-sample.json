@@ -1,0 +1,13 @@
+{
+    "task": "Get the current weather.",
+    "history": [
+        {
+            "Role": "User",
+            "Content": "What is the current weather?"
+        },
+        {
+            "Role": "Assistant",
+            "Content": "Please input your current location."
+        }
+    ]
+}

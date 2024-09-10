@@ -1,0 +1,35 @@
+---
+name: Orchestrator - Termination
+description: A prompt that determines when to end an agent group chat.
+model:
+  api: chat
+  configuration:
+    type: openai
+  parameters:
+    max_tokens: 3000
+inputs:
+  history:
+    description: The conversation history.
+    type: list
+    default: []
+  task:
+    description: The task to check for completion.
+    type: string
+sample: ${file:termination-failure-sample.json}
+---
+
+system:
+Ensure the task is complete in the most recent history.
+If more information is required, the task is not complete.
+If the task is complete, output "true"; otherwise, output "false".
+Don't explain your reasoning; just output true or false.
+
+## Task
+
+{{task}}
+
+## History
+
+{% for item in history %}
+  {{item.Role}}: {{item.Content}}
+{% endfor %}
