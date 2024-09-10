@@ -42,6 +42,15 @@ public class OrchestrationAgent
         });
     }
 
+    protected override KernelArguments InternalArguments(KernelArguments? arguments)
+    {
+        arguments ??= [];
+        KernelArguments args = [];
+        args["agents"] = Agents;
+        args = new(args.Concat(arguments).ToDictionary());
+        return base.InternalArguments(args);
+    }
+
     private string GetPromptyContents(string filePath)
     {
         var promptyFile = _fileProvider.GetFileInfo(filePath);
@@ -57,8 +66,8 @@ public class OrchestrationAgent
         Console.WriteLine(@"processed ""CreateTasks""");
         var tasksPrompty = GetPromptyContents("prompts/Orchestrator.tasks.prompty");
         var func = Kernel.CreateFunctionFromPrompty(tasksPrompty);
-        Arguments?.Add("history", history);
-        var result = await func.InvokeAsync(Kernel, Arguments);
+        var result = await func.InvokeAsync(Kernel, InternalArguments(
+            new(new Dictionary<string, object?> { ["history"] = history })));
         return result.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
     }
 
