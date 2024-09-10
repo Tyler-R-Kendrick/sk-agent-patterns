@@ -1,10 +1,5 @@
 using System.ComponentModel;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Agents;
-using Microsoft.SemanticKernel.Agents.History;
-using Microsoft.SemanticKernel.ChatCompletion;
 
 namespace Patterns.Agents;
 

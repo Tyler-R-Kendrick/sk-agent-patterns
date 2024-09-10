@@ -52,6 +52,8 @@ public partial class BaseAgent
 
     private static string GetPromptyContents(IFileInfo promptyFile)
     {
+        var exists = promptyFile.Exists;
+        Console.WriteLine($"Prompty file exists: {exists}; {promptyFile.PhysicalPath}");        
         using StreamReader promptyReader = new(promptyFile.CreateReadStream());
         return promptyReader.ReadToEnd();
     }
